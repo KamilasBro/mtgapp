@@ -1,17 +1,24 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "./store/reducers";
-import "./assets/scss/global.scss"
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import Home from "./pages/Home/Home";
+import "./assets/scss/global.scss";
+import BgAnim from "./components/BgAnim/BgAnim";
 const App: React.FC = () => {
-  const counter = useSelector((state: RootState) => state.counter);
-  const dispatch = useDispatch();
-
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Counter: {counter.counter}</h1>
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>Increment</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>Decrement</button>
-    </div>
+    <Router>
+      <BgAnim />
+      <Navbar />
+      <div className="flex justify-center w-screen">
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </main>
+      </div>
+      <Footer />
+    </Router>
   );
 };
 
