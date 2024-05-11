@@ -1,0 +1,60 @@
+@import "../../assets/scss/partials/colors";
+.Home h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+.Home .search-bar {
+  margin-top: 50px;
+  margin-bottom: 25px;
+  width: 750px;
+  background-color: $transparentBlack;
+  border-radius: 10px;
+}
+.Home .search-wrap {
+  cursor: pointer;
+  background-color: $orange;
+  border-radius: 10px 0px 0px 10px;
+  height: 70px;
+  width: 70px;
+  transition: 300ms;
+}
+.Home .search-wrap:hover {
+  background-color: $red;
+}
+.Home .search-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+.Home .search-wrap svg path {
+  stroke: $white;
+  stroke-width: 8px;
+}
+.Home .input-wrap {
+  width: 90%;
+}
+.Home input {
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  padding-inline: 25px;
+  height: 100%;
+}
+.Home ul {
+  gap: 15px;
+}
+.Home ul button {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $transparentBlack;
+  transition: 300ms;
+}
+.Home ul button:hover {
+  background-color: $orange;
+}
+.Home .cards {
+  margin-top: 50px;
+}
