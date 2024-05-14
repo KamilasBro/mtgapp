@@ -1,0 +1,22 @@
+@import "../../assets/scss/partials/colors";
+
+.Searched .cards-counter{
+    font-size: 28px;
+    font-weight: 400;
+    padding: 10px 30px 10px 30px;
+    background-color: $transparentBlack;
+    border-radius: 10px;
+}
+.Searched .counter-buttons-wrap{
+    column-gap: 15px;
+}
+.Searched .counter-buttons-wrap .active{
+    background-color: $orange;
+    transition: 300ms;
+}
+.Searched .counter-buttons-wrap .active:hover{
+    background-color: $red;
+}
+.Searched .cards{
+    margin-block: 100px;
+}

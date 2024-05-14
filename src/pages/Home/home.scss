@@ -44,14 +44,6 @@
 .Home ul {
   gap: 15px;
 }
-.Home ul button {
-  font-size: 14px;
-  font-weight: 300;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: $transparentBlack;
-  transition: 300ms;
-}
 .Home ul button:hover {
   background-color: $orange;
 }

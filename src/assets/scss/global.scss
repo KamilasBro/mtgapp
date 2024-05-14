@@ -10,7 +10,6 @@ body {
   font-family: "Rubik", sans-serif;
   letter-spacing: 1px;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 ::-webkit-scrollbar {
   width: 5px;
@@ -30,6 +29,14 @@ body {
   filter: brightness(25%);
   object-fit: cover;
 }
+ul button {
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $transparentBlack;
+  transition: 300ms;
+}
 main {
   margin-top: 175px;
   width: 1520px;
@@ -45,74 +52,18 @@ input::placeholder {
     opacity: 1;
   }
 }
-.cards{
-  height: 300px;
+.cards {
+  min-height: 300px;
+  column-gap: 46px;
+  row-gap: 50px;
 }
-.card,
-.card-placeholder {
+.card {
   cursor: pointer;
   width: 215px;
+  height: 300px;
   transition: 300ms;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 .card:hover {
   filter: drop-shadow(0px 0px 6px $orange);
-}
-.card-placeholder {
-  padding: 25px;
-  background-color: $transparentBlack; // Gray background color
-  -webkit-mask-image: linear-gradient(
-    -75deg,
-    rgba(255, 255, 255, 0.6) 30%,
-    #fff 50%,
-    rgba(255, 255, 255, 0.6) 70%
-  ); // White mask
-  -webkit-mask-size: 200%;
-  mask-image: linear-gradient(
-    -75deg,
-    rgba(255, 255, 255, 0.6) 30%,
-    #fff 50%,
-    rgba(255, 255, 255, 0.6) 70%
-  );
-  mask-size: 200%;
-  animation: shine 2s infinite;
-}
-
-@-webkit-keyframes shine {
-  from {
-    -webkit-mask-position: 150%;
-    mask-position: 150%;
-  }
-
-  to {
-    -webkit-mask-position: -50%;
-    mask-position: -50%;
-  }
-}
-
-@keyframes shine {
-  from {
-    mask-position: 150%;
-  }
-
-  to {
-    mask-position: -50%;
-  }
-}
-.card-placeholder-img{
-  width: 100%;
-  border-radius: 10px;
-  background-color: $grey;
-  height: 100px;
-}
-.card-placeholder-content{
-  margin-top: auto;
-  width: 100%;
-  row-gap: 15px;
-}
-.card-placeholder-content div{
-  border-radius: 10px;
-  height: 10px;
-  width: inherit;
-  background-color: $grey;
 }

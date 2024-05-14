@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./footer.scss";
 const Footer: React.FC = () => {
   return (
-    <footer className="footer w-screen flex items-center justify-center">
+    <footer className="footer flex items-center justify-center">
       <div className="inner-footer flex items-center justify-between">
         <img src={logo} alt="logo" />
         <p>
