@@ -1,32 +1,32 @@
 @import "../../assets/scss/partials/colors";
-footer{
-    margin-top: 75px;
-    padding: 32px;
-    background-color: $black;
+footer {
+  margin-top: 75px;
+  padding: 32px;
+  background-color: $black;
 }
-footer img{
-    width: 151px;
-    height: 53px;
+footer .inner-footer {
+  width: 1520px;
 }
-footer .inner-footer{
-    width: 1520px;
+footer img {
+  width: 151px;
+  height: 53px;
 }
-footer p{
-    width: 920px;
-    font-weight: 400;
-    font-size: 10px;
+footer p {
+  width: 920px;
+  font-weight: 400;
+  font-size: 10px;
 }
-footer .footer-link{
-    color: $orange;
+footer .footer-link {
+  color: $orange;
 }
-.footer .nav-links{
-    row-gap: 15px;
+.footer .nav-links {
+  row-gap: 15px;
 }
-.footer .nav-link{
-    font-size: 12px;
-    font-weight: 400;
-    transition: 300ms;
+.footer .nav-link {
+  font-size: 12px;
+  font-weight: 400;
+  transition: 300ms;
 }
-.footer .nav-link:hover{
-    color: $orange;
+.footer .nav-link:hover {
+  color: $orange;
 }
