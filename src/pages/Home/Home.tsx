@@ -2,21 +2,15 @@ import React, { useState, useEffect } from "react";
 import SearchSvg from "../../assets/images/icons/search.svg?react";
 import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import store, { setSearchAPIUrl } from "../../store/store";
 import { CardData } from "../../interfaces/CardsInterface";
 import "./home.scss";
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [randomCards, setRandomCards] = useState<CardData[]>([]);
   const [isFetched, setIsFetched] = useState(false);
   const [loadedImages, setLoadedImages] = useState(0);
   const [searchedName, setSearchedName] = useState("");
-
-  // Access state from the Redux store
-  const searchAPIUrlOpt = store.getState().searchAPIUrlOpt;
 
   useEffect(() => {
     //there is choose random in scryfall API but i cant load multiple cards per API call
@@ -61,19 +55,24 @@ const Home: React.FC = () => {
     };
     fetchRandomCards();
   }, []);
-  function formatString(inputString: string) {
+  function formatString(inputString: string): string {
+    // Trim leading and trailing spaces
+    const trimmedString = inputString.trim();
     // Replace multiple spaces with a single space
-    const stringWithSingleSpaces = inputString.replace(/\s+/g, " ");
+    const stringWithSingleSpaces = trimmedString.replace(/\s+/g, " ");
     // Replace spaces between words with '-'
-    const stringWithHyphens = stringWithSingleSpaces.replace(/\b\s+\b/g, "-");
+    const stringWithHyphens = stringWithSingleSpaces.replace(/\s/g, "-");
     return stringWithHyphens;
   }
-  console.log();
   return (
     <section className="Home">
       <h1 className="page-title">Search for a card</h1>
       <div className="search-bar flex">
-        <Link to={searchAPIUrlOpt}>
+        <Link
+          to={`/search?q=${searchedName}${
+            searchedName === "" ? "lang:en" : "&lang:en"
+          }&page=1`}
+        >
           <div className="search-wrap flex items-center justify-center">
             <SearchSvg />
           </div>
@@ -82,13 +81,15 @@ const Home: React.FC = () => {
           <input
             placeholder='Any card name ex. "black lotus"'
             onChange={(event) => {
-              const searchedName = formatString(event.target.value);
-              setSearchedName(searchedName);
-              dispatch(setSearchAPIUrl(searchedName));
+              setSearchedName(formatString(event.target.value));
             }}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
-                navigate(`/${searchAPIUrlOpt}`);
+                navigate(
+                  `/search?q=${searchedName}${
+                    searchedName === "" ? "lang:en" : "&lang:en"
+                  }&page=1`
+                );
               }
             }}
           />

@@ -1,0 +1,107 @@
+@import "../../assets/scss/partials/colors";
+.Sets h1 {
+  font-size: 42px;
+  font-weight: 600;
+}
+.Sets .search-bar {
+  margin-top: 50px;
+  margin-bottom: 25px;
+  width: 650px;
+  background-color: $transparentBlack;
+  border-radius: 10px;
+}
+.Sets .search-wrap {
+  border-radius: 10px 0px 0px 10px;
+  height: 70px;
+  width: 70px;
+  transition: 300ms;
+}
+.Sets .search-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+.Sets .search-wrap svg path {
+  stroke: $white;
+  stroke-width: 8px;
+}
+.Sets .input-wrap {
+  width: 90%;
+}
+.Sets input {
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  padding-inline: 10px;
+  height: 100%;
+}
+.Sets .sets-wrap {
+  margin-top: 100px;
+  column-gap: 100px;
+  row-gap: 75px;
+}
+.Sets .set-tile,
+.Sets .set-tile-placeholder {
+  width: 440px;
+  padding: 20px;
+  height: 90px;
+  background-color: $transparentBlack;
+  border-radius: 10px;
+}
+.Sets .set-tile-placeholder {
+  -webkit-mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  ); // White mask
+  -webkit-mask-size: 200%;
+  mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  );
+  mask-size: 200%;
+  animation: shine 2s infinite;
+}
+
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+    mask-position: 150%;
+  }
+
+  to {
+    -webkit-mask-position: -50%;
+    mask-position: -50%;
+  }
+}
+
+@keyframes shine {
+  from {
+    mask-position: 150%;
+  }
+
+  to {
+    mask-position: -50%;
+  }
+}
+.Sets .set-tile {
+  cursor: pointer;
+  gap: 25px;
+  transition: 300ms;
+}
+.Sets .set-tile img {
+  height: 40px;
+  width: 40px;
+  filter: saturate(100%) invert(80%);
+}
+.Sets .set-tile.active img {
+  filter: invert(35%) sepia(100%) saturate(7500%) hue-rotate(30deg);
+}
+.Sets .set-tile:hover {
+  color: $orange;
+  background-color: $black;
+}
