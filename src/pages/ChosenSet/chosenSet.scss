@@ -1,0 +1,51 @@
+@import "../../assets/scss/partials/colors";
+.Chosen-set h1 {
+  font-size: 42px;
+  font-weight: 600;
+}
+.Chosen-set .h1-set-icon{
+    width: 50px;
+    margin-right: 25px;
+    filter: invert(35%) sepia(100%) saturate(7500%) hue-rotate(30deg);
+}
+.Chosen-set .search-bar {
+  margin-top: 50px;
+  margin-bottom: 25px;
+  width: 650px;
+  background-color: $transparentBlack;
+  border-radius: 10px;
+}
+.Chosen-set .search-wrap {
+  border-radius: 10px 0px 0px 10px;
+  height: 70px;
+  width: 70px;
+  transition: 300ms;
+}
+.Chosen-set .search-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+.Chosen-set .search-wrap svg path {
+  stroke: $white;
+  stroke-width: 8px;
+}
+.Chosen-set .input-wrap {
+  width: 90%;
+}
+.Chosen-set input {
+  font-size: 20px;
+  font-weight: 400;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  padding-inline: 10px;
+  height: 100%;
+}
+.Chosen-set .sets-wrap {
+  margin-top: 100px;
+  column-gap: 100px;
+  row-gap: 75px;
+}
+.Chosen-set .cards{
+    margin-top: 100px;
+}

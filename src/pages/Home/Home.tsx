@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import SearchSvg from "../../assets/images/icons/search.svg?react";
 import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { Link, useNavigate } from "react-router-dom";
 import { CardData } from "../../interfaces/CardsInterface";
+import FormatString from "../../utils/FormatString";
 import "./home.scss";
 
 const Home: React.FC = () => {
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
   const [loadedImages, setLoadedImages] = useState(0);
   const [searchedName, setSearchedName] = useState("");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     //there is choose random in scryfall API but i cant load multiple cards per API call
     //and it was fetching couple seconds
     //now it is loading faster but have to work it around
@@ -55,15 +56,6 @@ const Home: React.FC = () => {
     };
     fetchRandomCards();
   }, []);
-  function formatString(inputString: string): string {
-    // Trim leading and trailing spaces
-    const trimmedString = inputString.trim();
-    // Replace multiple spaces with a single space
-    const stringWithSingleSpaces = trimmedString.replace(/\s+/g, " ");
-    // Replace spaces between words with '-'
-    const stringWithHyphens = stringWithSingleSpaces.replace(/\s/g, "-");
-    return stringWithHyphens;
-  }
   return (
     <section className="Home">
       <h1 className="page-title">Search for a card</h1>
@@ -81,7 +73,7 @@ const Home: React.FC = () => {
           <input
             placeholder='Any card name ex. "black lotus"'
             onChange={(event) => {
-              setSearchedName(formatString(event.target.value));
+              setSearchedName(FormatString(event.target.value));
             }}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
@@ -96,16 +88,16 @@ const Home: React.FC = () => {
         </div>
       </div>
       <ul className="flex">
-        <button>
-          <Link to={"/advanced-search"}>Advanced Search</Link>
-        </button>
-        <button>
-          <Link to={"/sets"}>Sets</Link>
-        </button>
+        <Link to={"/advanced-search"}>
+          <button>Advanced Search</button>
+        </Link>
+        <Link to={"/sets"}>
+          <button>Sets</button>
+        </Link>
         <button>Lucky Search</button>
-        <button>
-          <Link to={"/guess-the-card"}>Guess The Card</Link>
-        </button>
+        <Link to={"/guess-the-card"}>
+          <button>Guess The Card</button>
+        </Link>
       </ul>
       <ul className="cards flex justify-between flex-wrap">
         {loadedImages < randomCards.length &&

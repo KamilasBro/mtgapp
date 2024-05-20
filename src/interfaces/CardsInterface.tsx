@@ -7,6 +7,7 @@ export interface CardlistData {
 export interface CardData {
   id: string;
   length: number;
+  name: string;
   image_uris?: {
     normal: string;
   };
