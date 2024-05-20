@@ -1,0 +1,40 @@
+@import "../../assets/scss/partials/colors";
+.go-top-box {
+  top: 50%;
+  right: -120px;
+  transform: translateY(-50%);
+  background-color: $black;
+  padding-block: 20px;
+  padding-right: 20px;
+  padding-left: 50px;
+  border-radius: 10px 0px 0px 10px;
+  font-size: 14px;
+  font-weight: 300;
+  transition: 300ms;
+}
+.go-top-box.show-box {
+  right: 0px;
+}
+.go-top-box .hide-show-arrow {
+  cursor: pointer;
+  top: 50%;
+  left: -20px;
+  transform: translateY(-50%) rotate(180deg);
+  transition: 500ms;
+}
+.go-top-box.show-box .hide-show-arrow {
+  transform: translateY(-50%) rotate(0deg);
+}
+.go-top-box .go-top-arrow {
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  margin-bottom: 10px;
+}
+.go-top-box .go-top-arrow path {
+  transition: 300ms;
+}
+
+.go-top-box .go-top-arrow:hover path {
+  fill: $red;
+}

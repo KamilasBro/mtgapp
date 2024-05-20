@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { CardData, CardlistData } from "../../interfaces/CardsInterface";
+import GoTopArrow from "../../components/GoTopArrow/GoTopArrow";
 import "./searched.scss";
 
 const Searched: React.FC = () => {
@@ -20,10 +21,10 @@ const Searched: React.FC = () => {
 
   // Get the value of the page parameter
   let currentPage = urlParams.get("page");
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "auto", // Optional: Smooth scrolling behavior
+      behavior: "auto",
     });
     setIsFetched(false);
     setLoadedImages(0);
@@ -54,7 +55,7 @@ const Searched: React.FC = () => {
   }, [location]);
   function handlePage(action: string) {
     if (typeof currentPage !== "string") {
-      // If there was no existing page parameter, set it to 1
+      // If there was no existing page parameter, set it to 2
       urlParams.set("page", "2");
     } else {
       // Remove existing page parameter if it exists
@@ -228,6 +229,7 @@ const Searched: React.FC = () => {
           {returnCardsCounter()}
         </>
       )}
+      <GoTopArrow />
     </section>
   );
 };
