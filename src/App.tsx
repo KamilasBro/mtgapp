@@ -8,6 +8,7 @@ import BgAnim from "./components/BgAnim/BgAnim";
 import Searched from "./pages/Searched/Searched";
 import Sets from "./pages/Sets/Sets";
 import ChosenSet from "./pages/ChosenSet/ChosenSet";
+import Card from "./pages/Card/Card";
 import "./assets/scss/global.scss";
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <Route path="/:query" element={<Searched />} />
             <Route path="/sets" element={<Sets />} />
             <Route path="/sets/:setCode" element={<ChosenSet />} />
+            <Route path="/card/:set/:code" element={<Card />} />
           </Routes>
         </main>
       </div>

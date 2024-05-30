@@ -1,10 +1,11 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SearchSvg from "../../assets/images/icons/search.svg?react";
 import GoTopArrow from "../../components/GoTopArrow/GoTopArrow";
 import FormatString from "../../utils/FormatString";
 import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { CardData } from "../../interfaces/CardsInterface";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./chosenSet.scss";
 
 const ChosenSet: React.FC = () => {
@@ -18,7 +19,7 @@ const ChosenSet: React.FC = () => {
   });
   const [searchedName, setSearchedName] = useState("");
   const { setCode } = useParams<{ setCode: string }>();
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchIcon = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 100)); // Set a timeout of 100ms
@@ -44,7 +45,7 @@ const ChosenSet: React.FC = () => {
 
     fetchIcon();
   }, []);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchCards = async () => {
       try {
         let hasMore = true;
@@ -111,29 +112,20 @@ const ChosenSet: React.FC = () => {
                 : true
             )
             .map((card: CardData) => (
-              <li
+              <Link
+                to={`/card/${card.set}/${card.collector_number}`}
                 key={card.id}
-                style={{
-                  display:
-                    loadedImages === dataFromSet.length ? "block" : "none",
-                }}
               >
-                {card.image_uris ? (
-                  <img
-                    className="card"
-                    src={card.image_uris.normal}
-                    alt="Card"
-                    loading="eager"
-                    onLoad={() =>
-                      loadedImages < dataFromSet.length &&
-                      setLoadedImages((prevState) => prevState + 1)
-                    }
-                  />
-                ) : (
-                  card.card_faces && (
+                <li
+                  style={{
+                    display:
+                      loadedImages === dataFromSet.length ? "block" : "none",
+                  }}
+                >
+                  {card.image_uris ? (
                     <img
                       className="card"
-                      src={card.card_faces[0].image_uris.normal}
+                      src={card.image_uris.normal}
                       alt="Card"
                       loading="eager"
                       onLoad={() =>
@@ -141,9 +133,22 @@ const ChosenSet: React.FC = () => {
                         setLoadedImages((prevState) => prevState + 1)
                       }
                     />
-                  )
-                )}
-              </li>
+                  ) : (
+                    card.card_faces && (
+                      <img
+                        className="card"
+                        src={card.card_faces[0].image_uris.normal}
+                        alt="Card"
+                        loading="eager"
+                        onLoad={() =>
+                          loadedImages < dataFromSet.length &&
+                          setLoadedImages((prevState) => prevState + 1)
+                        }
+                      />
+                    )
+                  )}
+                </li>
+              </Link>
             ))}
       </ul>
       <GoTopArrow />

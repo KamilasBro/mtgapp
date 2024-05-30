@@ -1,0 +1,100 @@
+@import "../../assets/scss/partials/colors";
+.Card .card-info .card-placeholder {
+  width: 330px;
+  height: 460px;
+}
+.Card .card-info .card-placeholder-img {
+  height: 170px;
+}
+.Card .card-info .card-placeholder-content {
+  row-gap: 25px;
+}
+.Card .card-info .card-placeholder-content div {
+  height: 20px;
+}
+@-webkit-keyframes shine {
+  from {
+    -webkit-mask-position: 150%;
+    mask-position: 150%;
+  }
+
+  to {
+    -webkit-mask-position: -50%;
+    mask-position: -50%;
+  }
+}
+
+@keyframes shine {
+  from {
+    mask-position: 150%;
+  }
+
+  to {
+    mask-position: -50%;
+  }
+}
+.Card .card-info .card-details-placeholders {
+  gap: 50px;
+  background-color: $transparentBlack;
+  border-radius: 10px;
+  padding: 25px;
+  -webkit-mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  ); // White mask
+  -webkit-mask-size: 200%;
+  mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  );
+  mask-size: 200%;
+  animation: shine 2s infinite;
+}
+.Card .card-info .card-details-placeholder {
+  height: 20px;
+  width: 40%;
+  border-radius: 10px;
+  background-color: $grey;
+}
+.Card .card-info .card-details-placeholder:first-child {
+  height: 40px;
+  width: 100%;
+}
+.Card .card-info .card-details-placeholder:nth-child(3),
+.Card .card-info .card-details-placeholder:nth-child(4) {
+  width: 100%;
+}
+.Card .prints .placeholder,
+.Card .rules .placeholder {
+  -webkit-mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  ); // White mask
+  -webkit-mask-size: 200%;
+  mask-image: linear-gradient(
+    -75deg,
+    rgba(255, 255, 255, 0.6) 30%,
+    #fff 50%,
+    rgba(255, 255, 255, 0.6) 70%
+  );
+  mask-size: 200%;
+  animation: shine 2s infinite;
+  gap: 25px;
+}
+.Card .prints .placeholder div,
+.Card .rules .placeholder div {
+  background-color: $grey;
+  height: 20px;
+  width: 100%;
+  border-radius: 10px;
+}
+.Card .rules .placeholder div:nth-child(1),
+.Card .rules .placeholder div:nth-child(3) {
+  width: 15%;
+}
