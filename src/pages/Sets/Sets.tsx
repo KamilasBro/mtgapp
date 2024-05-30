@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import SearchSvg from "../../assets/images/icons/search.svg?react";
 import GoTopArrow from "../../components/GoTopArrow/GoTopArrow";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ const Sets: React.FC = () => {
   const [sets, setSets] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
   const [searchedName, setSearchedName] = useState("");
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchCards = async () => {
       try {
         await new Promise((resolve) => {

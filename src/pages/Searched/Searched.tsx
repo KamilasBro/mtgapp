@@ -1,5 +1,5 @@
-import React, { useState, useLayoutEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { CardData, CardlistData } from "../../interfaces/CardsInterface";
 import GoTopArrow from "../../components/GoTopArrow/GoTopArrow";
@@ -18,10 +18,9 @@ const Searched: React.FC = () => {
   const [cardNotFound, setCardNotFound] = useState(false);
   // Parse the URL query string
   const urlParams = new URLSearchParams(location.search);
-
   // Get the value of the page parameter
   let currentPage = urlParams.get("page");
-  useLayoutEffect(() => {
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "auto",
@@ -52,7 +51,7 @@ const Searched: React.FC = () => {
       }
     };
     fetchCards();
-  }, [location]);
+  }, [currentPage]);
   function handlePage(action: string) {
     if (typeof currentPage !== "string") {
       // If there was no existing page parameter, set it to 2
@@ -86,7 +85,6 @@ const Searched: React.FC = () => {
           break;
       }
     }
-    console.log();
     // Construct the new URL with the updated query string
     return `${location.pathname}?${urlParams.toString()}`;
   }
@@ -191,39 +189,43 @@ const Searched: React.FC = () => {
                 .map((_, index) => <CardPlaceholder key={index} />)}
             {isFetched &&
               searchedCards.data.map((card: CardData) => (
-                <li
+                <Link
+                  to={`/card/${card.set}/${card.collector_number}`}
                   key={card.id}
-                  style={{
-                    display:
-                      loadedImages === searchedCards.data.length
-                        ? "block"
-                        : "none",
-                  }}
                 >
-                  {card.image_uris ? (
-                    <img
-                      className="card"
-                      src={card.image_uris.normal}
-                      alt="Card"
-                      loading="eager"
-                      onLoad={() =>
-                        setLoadedImages((prevState) => prevState + 1)
-                      }
-                    />
-                  ) : (
-                    card.card_faces && (
+                  <li
+                    style={{
+                      display:
+                        loadedImages === searchedCards.data.length
+                          ? "block"
+                          : "none",
+                    }}
+                  >
+                    {card.image_uris ? (
                       <img
                         className="card"
-                        src={card.card_faces[0].image_uris.normal}
+                        src={card.image_uris.normal}
                         alt="Card"
                         loading="eager"
                         onLoad={() =>
                           setLoadedImages((prevState) => prevState + 1)
                         }
                       />
-                    )
-                  )}
-                </li>
+                    ) : (
+                      card.card_faces && (
+                        <img
+                          className="card"
+                          src={card.card_faces[0].image_uris.normal}
+                          alt="Card"
+                          loading="eager"
+                          onLoad={() =>
+                            setLoadedImages((prevState) => prevState + 1)
+                          }
+                        />
+                      )
+                    )}
+                  </li>
+                </Link>
               ))}
           </ul>
           {returnCardsCounter()}
