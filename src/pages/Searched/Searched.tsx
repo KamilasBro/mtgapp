@@ -69,8 +69,6 @@ const Searched: React.FC = () => {
           setVisibleCards((prevVisibleCards) => Math.min(prevVisibleCards + 25, searchedCards.data.length));
         }
       });
-    }, {
-      rootMargin: '200px', // Load cards 200px before reaching the sentinel
     });
 
     const sentinel = document.querySelector("#sentinel");
@@ -144,7 +142,7 @@ const Searched: React.FC = () => {
         <ul className={"counter-buttons-wrap flex"}>
           <button
             className={`${currentPage && parseInt(currentPage) > 1 && "active"}`}
-            disabled={currentPage && parseInt(currentPage) === 1}
+            disabled={!!currentPage && parseInt(currentPage) === 1}
             onClick={() => {
               navigate(handlePage("start"));
             }}
@@ -153,7 +151,7 @@ const Searched: React.FC = () => {
           </button>
           <button
             className={`${currentPage && parseInt(currentPage) > 1 && "active"}`}
-            disabled={currentPage && parseInt(currentPage) === 1}
+            disabled={!!currentPage && parseInt(currentPage) === 1}
             onClick={() => {
               navigate(handlePage("remove"));
             }}

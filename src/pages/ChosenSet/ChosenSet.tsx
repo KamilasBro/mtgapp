@@ -10,7 +10,6 @@ import "./chosenSet.scss";
 
 const ChosenSet: React.FC = () => {
   const [dataFromSet, setDataFromSet] = useState<CardData[]>([]);
-  const [loadedImages, setLoadedImages] = useState(0);
   const [iconUrl, setIconUrl] = useState("");
   const [nameOfSet, setNameOfSet] = useState("");
   const [isFetched, setIsFetched] = useState({
