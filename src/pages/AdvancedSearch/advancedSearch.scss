@@ -1,0 +1,43 @@
+@import "../../assets/scss/partials/colors";
+.Advanced_search .inner {
+  width: 1000px;
+}
+.Advanced_search h1 {
+  font-size: 42px;
+  font-weight: 600;
+}
+.Advanced_search .filters {
+  margin-top: 75px;
+  gap: 50px;
+}
+.Advanced_search .filter-tag {
+  width: 250px;
+  font-size: 28px;
+  font-weight: 500;
+}
+.Advanced_search .filter-tag svg {
+  height: 40px;
+  width: 40px;
+  margin-right: 25px;
+}
+.Advanced_search hr {
+  width: 100%;
+  border-color: rgba(234, 75, 18, 0.55);
+  margin-top: 25px;
+}
+.Advanced_search .filter .input-wrap {
+  width: 100%;
+}
+.Advanced_search .filter input {
+  width: 100%;
+  height: auto;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 10px;
+  outline: none;
+  background-color: $transparentBlack;
+}
+.Advanced_search .filter-name input {
+  width: 100%;
+}

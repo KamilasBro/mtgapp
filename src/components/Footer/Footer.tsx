@@ -5,7 +5,9 @@ const Footer: React.FC = () => {
   return (
     <footer className="footer flex items-center justify-center">
       <div className="inner-footer flex items-center justify-between">
-        <img src={logo} alt="logo" />
+        <Link to={"/"}>
+          <img src={logo} alt="logo" />
+        </Link>
         <p>
           All names and trademarks used on this website belong to their
           respective owners. This site is for informational purposes only and is
@@ -24,13 +26,13 @@ const Footer: React.FC = () => {
             <Link to={"/"}>Search</Link>
           </li>
           <li className="nav-link">
-            <Link to={"/advanced-search"}>Advanced Search</Link>
+            <Link to={"/advanced"}>Advanced Search</Link>
           </li>
           <li className="nav-link">
             <Link to={"/sets"}>Sets</Link>
           </li>
           <li className="nav-link">
-            <Link to={"/guess-the-card"}>Guess The Card</Link>
+            <Link to={"/guess"}>Guess The Card</Link>
           </li>
         </ul>
       </div>

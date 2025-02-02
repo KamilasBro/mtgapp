@@ -44,6 +44,11 @@
   font-size: 20px;
   font-weight: 400;
 }
+.Card h3 img {
+  width: 32px;
+  margin-right: 10px;
+  filter: invert(35%) sepia(100%) saturate(7500%) hue-rotate(30deg);
+}
 .Card p {
   font-size: 16px;
   font-weight: 300;
@@ -137,4 +142,6 @@
 .Card .rules a {
   color: $orange;
 }
-
+.Card .set-icon {
+  height: 32px;
+}

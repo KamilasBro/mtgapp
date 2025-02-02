@@ -69,3 +69,10 @@ export interface CardSymbolData {
   symbol: string;
   transposable: boolean;
 }
+export interface Set {
+  id: string;
+  name: string;
+  icon_svg_uri: string;
+  code: string;
+  uri: string;
+}

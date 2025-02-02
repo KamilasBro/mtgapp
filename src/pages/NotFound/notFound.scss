@@ -1,0 +1,16 @@
+@import "../../assets/scss/partials/colors";
+.Not-found {
+  gap: 25px;
+  margin-bottom: 400px;
+}
+.Not-found h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+.Not-found button {
+  margin-top: 25px;
+  background-color: $orange;
+}
+.Not-found button:hover {
+  background-color: $red;
+}
