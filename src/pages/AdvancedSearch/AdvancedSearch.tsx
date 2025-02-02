@@ -1,5 +1,4 @@
 import NameSvg from "../../assets/images/icons/name.svg?react";
-import TextSvg from "../../assets/images/icons/text.svg?react";
 import TypeSvg from "../../assets/images/icons/type.svg?react";
 import "./advancedSearch.scss";
 const AdvancedSearch: React.FC = () => {
@@ -28,7 +27,6 @@ const AdvancedSearch: React.FC = () => {
           <li className="filter filter-text">
             <div className="flex justify-between">
               <div className="filter-tag flex items-center">
-                <TextSvg />
                 Text
               </div>
               <div className="input-wrap flex">
