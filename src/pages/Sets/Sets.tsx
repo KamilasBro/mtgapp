@@ -2,20 +2,15 @@ import React, { useState, useEffect } from "react";
 import SearchSvg from "../../assets/images/icons/search.svg?react";
 import GoTopArrow from "../../components/GoTopArrow/GoTopArrow";
 import { Link } from "react-router-dom";
+import { Set } from "../../interfaces/CardsInterface";
 import FormatString from "../../utils/FormatString";
 import "./sets.scss";
 
-interface Set {
-  id: string;
-  name: string;
-  icon_svg_uri: string;
-  code: string;
-}
-
 const Sets: React.FC = () => {
-  const [sets, setSets] = useState([]);
+  const [sets, setSets] = useState<Set[]>([]);
   const [isFetched, setIsFetched] = useState(false);
   const [searchedName, setSearchedName] = useState("");
+
   useEffect(() => {
     const fetchCards = async () => {
       try {
@@ -26,17 +21,17 @@ const Sets: React.FC = () => {
         const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error("Failed to fetch data");
-        } else {
-          const data = await response.json();
-          setSets(data.data);
-          setIsFetched(true);
         }
+        const data = await response.json();
+        setSets(data.data);
+        setIsFetched(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchCards();
   }, []);
+
   return (
     <section className="Sets">
       <h1>Search for a set</h1>
@@ -57,11 +52,11 @@ const Sets: React.FC = () => {
       <ul className="sets-wrap flex flex-wrap">
         {isFetched
           ? sets
-              .filter((set: Set) =>
+              .filter((set) =>
                 set.name.toLowerCase().includes(searchedName.toLowerCase())
               )
-              .map((set: Set) => (
-                <Link to={set.code} key={`set` + set.id}>
+              .map((set) => (
+                <Link to={`/sets/${set.code}`} key={set.id}>
                   <li
                     className="set-tile flex items-center justify-center"
                     onMouseEnter={(event) => {
@@ -78,14 +73,12 @@ const Sets: React.FC = () => {
               ))
           : Array(9)
               .fill(null)
-              .map((_, index) => {
-                return (
-                  <li
-                    key={"set" + index}
-                    className="set-tile-placeholder flex items-center justify-center"
-                  ></li>
-                );
-              })}
+              .map((_, index) => (
+                <li
+                  key={index}
+                  className="set-tile-placeholder flex items-center justify-center"
+                ></li>
+              ))}
       </ul>
       <GoTopArrow />
     </section>

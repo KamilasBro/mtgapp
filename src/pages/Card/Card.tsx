@@ -27,6 +27,7 @@ const Card: React.FC = () => {
     imgSrc: "",
   });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [setIconUrl, setSetIconUrl] = useState<string>(""); // Track set icon URL
   const mtgFormats = [
     "Standard",
     "Alchemy",
@@ -83,6 +84,7 @@ const Card: React.FC = () => {
           console.error("Error fetching data:", error);
         }
       };
+      setShowCardBack(false);
       fetchPrints();
     }
   }, [cardData]);
@@ -129,6 +131,40 @@ const Card: React.FC = () => {
     };
     fetchSymbols();
   }, []);
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({
+        x: event.clientX,
+        y: event.clientY + window.scrollY, // Adjust for scroll position
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+  useEffect(() => {
+    if (isFetched.cardFetched) {
+      const fetchSetIcon = async () => {
+        try {
+          const apiUrl = `https://api.scryfall.com/sets/${params.set}`;
+          const response = await fetch(apiUrl);
+          if (!response.ok) {
+            throw new Error("Failed to fetch set icon");
+          } else {
+            const data = await response.json();
+            setSetIconUrl(data.icon_svg_uri);
+          }
+        } catch (error) {
+          console.error("Error fetching set icon:", error);
+        }
+      };
+
+      fetchSetIcon();
+    }
+  }, [isFetched.cardFetched, params.set]);
   function renderTextWithSymbols(text: string) {
     const symbolRegex = /\{([^}]+)\}/g;
     const parts: (string | JSX.Element)[] = [];
@@ -211,6 +247,9 @@ const Card: React.FC = () => {
       });
   }
   function renderCardImg() {
+    if (cardData?.type_line.includes("Room")) {
+      return <img src={cardData?.image_uris?.normal} className="card-img" />;
+    }
     if (cardData?.card_back_id && showCardBack) {
       const [firstChar, secondChar] = cardData.card_back_id.split("-")[0]; // Get the first and second characters from the ID
       return (
@@ -232,20 +271,27 @@ const Card: React.FC = () => {
       );
     }
   }
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({
-        x: event.clientX,
-        y: event.clientY,
+  const handleMouseEnter = (print: CardData) => {
+    if (
+      cardData?.set !== print.set ||
+      cardData?.collector_number !== print.collector_number
+    ) {
+      setPrintMinature({
+        show: true,
+        imgSrc: print.card_faces
+          ? print.card_faces[0]?.image_uris?.normal ?? ""
+          : print.image_uris?.normal ?? "",
       });
-    };
+    }
+  };
 
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  const handleMouseLeave = () => {
+    setPrintMinature({
+      show: false,
+      imgSrc: "",
+    });
+  };
+  console.log(cardData);
   return (
     <section className="Card">
       {printMinature.show && (
@@ -261,16 +307,19 @@ const Card: React.FC = () => {
       <div className="card-info flex">
         <div className="flex flex-col items-center">
           {isFetched.cardFetched ? renderCardImg() : <CardPlaceholder />}
-          {cardData && cardData?.layout !== "normal" && (
-            <button
-              className="view-back"
-              onClick={() => {
-                setShowCardBack((prevState) => !prevState);
-              }}
-            >
-              View Back
-            </button>
-          )}
+          {cardData &&
+            cardData?.layout !== "normal" &&
+            !cardData?.type_line.includes("Token") &&
+            !cardData?.type_line.includes("Emblem") && (
+              <button
+                className="view-back"
+                onClick={() => {
+                  setShowCardBack((prevState) => !prevState);
+                }}
+              >
+                View Back
+              </button>
+            )}
         </div>
         <ul className="card-details flex flex-col">
           {isFetched.cardFetched && isFetched.symbolsFetched && cardData ? (
@@ -337,7 +386,10 @@ const Card: React.FC = () => {
                 cardData.loyalty && <p>Loyalty {cardData.loyalty}</p>
               )}
               <p className="italic">Illustrated by {cardData.artist}</p>
-              <h3>
+              <h3 className="flex items-center">
+                {setIconUrl && (
+                  <img src={setIconUrl} alt="Set Icon" className="set-icon" />
+                )}
                 {`${cardData.set_name} (${cardData.set.toUpperCase()}) #${
                   cardData.collector_number
                 } · `}
@@ -370,31 +422,9 @@ const Card: React.FC = () => {
             printsData.map((print: CardData) => {
               return (
                 <Link
-                  onMouseEnter={() => {
-                    if (
-                      cardData?.set !== print.set ||
-                      cardData?.collector_number !== print.collector_number
-                    ) {
-                      setPrintMinature({
-                        show: true,
-                        imgSrc: print.card_faces
-                          ? print.card_faces[0]?.image_uris?.normal ?? ""
-                          : print.image_uris?.normal ?? "",
-                      });
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    setPrintMinature({
-                      show: false,
-                      imgSrc: "",
-                    });
-                  }}
-                  onClick={() => {
-                    setPrintMinature({
-                      show: false,
-                      imgSrc: "",
-                    });
-                  }}
+                  onMouseEnter={() => handleMouseEnter(print)}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={handleMouseLeave}
                   to={`/card/${print.set}/${print.collector_number}`}
                   key={"print " + print.id}
                 >
