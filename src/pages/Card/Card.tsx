@@ -247,7 +247,10 @@ const Card: React.FC = () => {
       });
   }
   function renderCardImg() {
-    if (cardData?.type_line.includes("Room")) {
+    const typeLine =
+      cardData?.type_line || cardData?.card_faces?.[0]?.type_line;
+
+    if (typeLine?.includes("Room")) {
       return <img src={cardData?.image_uris?.normal} className="card-img" />;
     }
     if (cardData?.card_back_id && showCardBack) {
@@ -271,6 +274,7 @@ const Card: React.FC = () => {
       );
     }
   }
+
   const handleMouseEnter = (print: CardData) => {
     if (
       cardData?.set !== print.set ||
@@ -291,6 +295,29 @@ const Card: React.FC = () => {
       imgSrc: "",
     });
   };
+  const renderViewBackButton = () => {
+    const typeLine =
+      cardData?.type_line ||
+      cardData?.card_faces?.[0]?.type_line ||
+      cardData?.card_faces?.[1]?.type_line;
+
+    if (
+      (cardData && cardData?.layout !== "normal") ||
+      typeLine?.includes("Token") ||
+      typeLine?.includes("Emblem")
+    ) {
+      return (
+        <button
+          className="view-back"
+          onClick={() => {
+            setShowCardBack((prevState) => !prevState);
+          }}
+        >
+          View Back
+        </button>
+      );
+    }
+  };
   console.log(cardData);
   return (
     <section className="Card">
@@ -307,19 +334,7 @@ const Card: React.FC = () => {
       <div className="card-info flex">
         <div className="flex flex-col items-center">
           {isFetched.cardFetched ? renderCardImg() : <CardPlaceholder />}
-          {cardData &&
-            cardData?.layout !== "normal" &&
-            !cardData?.type_line.includes("Token") &&
-            !cardData?.type_line.includes("Emblem") && (
-              <button
-                className="view-back"
-                onClick={() => {
-                  setShowCardBack((prevState) => !prevState);
-                }}
-              >
-                View Back
-              </button>
-            )}
+          {renderViewBackButton()}
         </div>
         <ul className="card-details flex flex-col">
           {isFetched.cardFetched && isFetched.symbolsFetched && cardData ? (
