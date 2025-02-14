@@ -1,0 +1,8 @@
+### Alternatywnie, możesz użyć pliku `netlify.toml`
+
+Jeśli wolisz użyć pliku `netlify.toml`, upewnij się, że ma on następującą konfigurację:
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
