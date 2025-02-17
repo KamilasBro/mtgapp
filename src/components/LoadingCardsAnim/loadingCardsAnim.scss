@@ -14,7 +14,7 @@
   }
   50% {
     transform: translateX(-250px) rotate(-15deg);
-    z-index: 0;
+    z-index: -2;
   }
   100% {
     transform: translateX(0px);
