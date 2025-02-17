@@ -4,6 +4,7 @@ import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { Link, useNavigate } from "react-router-dom";
 import { CardData } from "../../interfaces/CardsInterface";
 import FormatString from "../../utils/FormatString";
+import LoadingCardsAnim from "../../components/LoadingCardsAnim/LoadingCardsAnim";
 import "./home.scss";
 
 const Home: React.FC = () => {
@@ -133,35 +134,43 @@ const Home: React.FC = () => {
         </Link>
       </ul>
       <ul className="cards flex justify-between flex-wrap">
-        {showcaseCards.map((card, index) => (
-          <li
-            onClick={() => navigate(`/card/${card.set}/${card.collector_number}`)}
-            key={card.id}
-          >
-            {!loadedCards[index] && <CardPlaceholder />} {/* Placeholder */}
-            {card.image_uris ? (
-              <img
-                className="card"
-                src={card.image_uris.normal}
-                alt="Card"
-                loading="eager"
-                onLoad={() => handleImageLoad(index)} // Update load state
-                style={{ display: loadedCards[index] ? "block" : "none" }} // Hide until loaded
-              />
-            ) : (
-              card.card_faces && (
-                <img
-                  className="card"
-                  src={card.card_faces[0].image_uris.normal}
-                  alt="Card"
-                  loading="eager"
-                  onLoad={() => handleImageLoad(index)}
-                  style={{ display: loadedCards[index] ? "block" : "none" }}
-                />
-              )
-            )}
-          </li>
-        ))}
+        {showcaseCards.length === 0 ? (
+          <LoadingCardsAnim />
+        ) : (
+          <>
+            {showcaseCards.map((card, index) => (
+              <li
+                onClick={() =>
+                  navigate(`/card/${card.set}/${card.collector_number}`)
+                }
+                key={card.id}
+              >
+                {!loadedCards[index] && <CardPlaceholder />} {/* Placeholder */}
+                {card.image_uris ? (
+                  <img
+                    className="card"
+                    src={card.image_uris.normal}
+                    alt="Card"
+                    loading="eager"
+                    onLoad={() => handleImageLoad(index)} // Update load state
+                    style={{ display: loadedCards[index] ? "block" : "none" }} // Hide until loaded
+                  />
+                ) : (
+                  card.card_faces && (
+                    <img
+                      className="card"
+                      src={card.card_faces[0].image_uris.normal}
+                      alt="Card"
+                      loading="eager"
+                      onLoad={() => handleImageLoad(index)}
+                      style={{ display: loadedCards[index] ? "block" : "none" }}
+                    />
+                  )
+                )}
+              </li>
+            ))}
+          </>
+        )}
       </ul>
     </section>
   );

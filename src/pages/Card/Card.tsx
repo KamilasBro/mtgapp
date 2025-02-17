@@ -405,10 +405,12 @@ const Card: React.FC = () => {
                 {setIconUrl && (
                   <img src={setIconUrl} alt="Set Icon" className="set-icon" />
                 )}
-                {`${cardData.set_name} (${cardData.set.toUpperCase()}) #${
-                  cardData.collector_number
-                } · `}
-                <span className="capitalize">{cardData.rarity}</span>
+                <span>
+                  {`${cardData.set_name} (${cardData.set.toUpperCase()}) #${
+                    cardData.collector_number
+                  } · `}
+                  <span className="capitalize">{cardData.rarity}</span>
+                </span>
               </h3>
               <ul className="card-formats flex flex-wrap">
                 {compareData(cardData.released_at) ? (

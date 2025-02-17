@@ -6,6 +6,7 @@ import CardPlaceholder from "../../components/CardPlaceholder/CardPlaceholder";
 import { CardData } from "../../interfaces/CardsInterface";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import LoadingCardsAnim from "../../components/LoadingCardsAnim/LoadingCardsAnim";
 import "./chosenSet.scss";
 
 const ChosenSet: React.FC = () => {
@@ -79,15 +80,20 @@ const ChosenSet: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    observer.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setVisibleCards((prevVisibleCards) => Math.min(prevVisibleCards + 25, dataFromSet.length));
-        }
-      });
-    }, {
-      rootMargin: '200px', // Load cards 200px before reaching the sentinel
-    });
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleCards((prevVisibleCards) =>
+              Math.min(prevVisibleCards + 25, dataFromSet.length)
+            );
+          }
+        });
+      },
+      {
+        rootMargin: "200px", // Load cards 200px before reaching the sentinel
+      }
+    );
 
     const sentinel = document.querySelector("#sentinel");
     if (sentinel) {
@@ -134,45 +140,58 @@ const ChosenSet: React.FC = () => {
         </div>
       </div>
       <ul className="cards flex flex-wrap">
-        {isFetched.cardsFetched &&
-          dataFromSet
-            .filter((card: CardData) =>
-              searchedName
-                ? card.name.toLowerCase().includes(searchedName.toLowerCase())
-                : true
-            )
-            .slice(0, visibleCards) // Display only visible cards
-            .map((card: CardData, index: number) => (
-              <Link
-                to={`/card/${card.set}/${card.collector_number}`}
-                key={card.id}
-              >
-                <li>
-                  {!loadedCards[index] && <CardPlaceholder />} {/* Placeholder */}
-                  {card.image_uris ? (
-                    <img
-                      className="card"
-                      src={card.image_uris.normal}
-                      alt="Card"
-                      loading="eager"
-                      onLoad={() => handleImageLoad(index)} // Update load state
-                      style={{ display: loadedCards[index] ? "block" : "none" }} // Hide until loaded
-                    />
-                  ) : (
-                    card.card_faces && (
-                      <img
-                        className="card"
-                        src={card.card_faces[0].image_uris.normal}
-                        alt="Card"
-                        loading="eager"
-                        onLoad={() => handleImageLoad(index)}
-                        style={{ display: loadedCards[index] ? "block" : "none" }}
-                      />
-                    )
-                  )}
-                </li>
-              </Link>
-            ))}
+        {dataFromSet.length === 0 ? (
+          <LoadingCardsAnim />
+        ) : (
+          <>
+            {isFetched.cardsFetched &&
+              dataFromSet
+                .filter((card: CardData) =>
+                  searchedName
+                    ? card.name
+                        .toLowerCase()
+                        .includes(searchedName.toLowerCase())
+                    : true
+                )
+                .slice(0, visibleCards) // Display only visible cards
+                .map((card: CardData, index: number) => (
+                  <Link
+                    to={`/card/${card.set}/${card.collector_number}`}
+                    key={card.id}
+                  >
+                    <li>
+                      {!loadedCards[index] && <CardPlaceholder />}{" "}
+                      {/* Placeholder */}
+                      {card.image_uris ? (
+                        <img
+                          className="card"
+                          src={card.image_uris.normal}
+                          alt="Card"
+                          loading="eager"
+                          onLoad={() => handleImageLoad(index)} // Update load state
+                          style={{
+                            display: loadedCards[index] ? "block" : "none",
+                          }} // Hide until loaded
+                        />
+                      ) : (
+                        card.card_faces && (
+                          <img
+                            className="card"
+                            src={card.card_faces[0].image_uris.normal}
+                            alt="Card"
+                            loading="eager"
+                            onLoad={() => handleImageLoad(index)}
+                            style={{
+                              display: loadedCards[index] ? "block" : "none",
+                            }}
+                          />
+                        )
+                      )}
+                    </li>
+                  </Link>
+                ))}
+          </>
+        )}
       </ul>
       <div id="sentinel" style={{ height: "1px" }}></div>
       <GoTopArrow />

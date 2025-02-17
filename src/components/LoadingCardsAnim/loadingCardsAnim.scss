@@ -1,0 +1,52 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes shuffleCard {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-250px) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(0px);
+    z-index: -2;
+  }
+}
+.Loading-cards {
+  animation: fadeIn 2s;
+}
+.Loading-cards-wrap {
+  height: 300px;
+  position: relative;
+}
+.Home .Loading-cards-wrap {
+  width: 1520px;
+}
+.Searched .Loading-cards-wrap {
+  margin-block: 100px;
+  width: 215px;
+}
+.Chosen-set .Loading-cards-wrap {
+  margin-block: 100px;
+  width: 1520px;
+}
+.Loading-cards-svg {
+  position: absolute;
+}
+.Loading-cards-svg:nth-child(1) {
+  z-index: -1;
+}
+.Loading-cards-svg:nth-child(2) {
+  z-index: 0;
+}
+.Loading-cards-svg:nth-child(3) {
+  z-index: 1;
+  animation: shuffleCard 2.5s infinite;
+  animation-fill-mode: forwards;
+}
