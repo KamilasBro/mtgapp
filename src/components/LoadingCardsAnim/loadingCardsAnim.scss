@@ -10,35 +10,25 @@
 @keyframes shuffleCard {
   0% {
     transform: translateX(0px);
-    z-index: 1;
+    z-index: 3;
   }
   50% {
     transform: translateX(-250px) rotate(-15deg);
-    z-index: -2;
   }
   100% {
-    transform: translateX(0px);
-    z-index: -2;
+    transform: translateX(0px) rotate(0deg);
+    z-index: 0;
   }
 }
 
 .Loading-cards {
-  animation: fadeIn 2s ease-in-out;
+  animation: fadeIn 2.5s ease-in;
 }
 
 .Loading-cards-wrap {
   height: 300px;
-  position: relative;
-}
-
-.Home .Loading-cards-wrap,
-.Chosen-set .Loading-cards-wrap {
   width: 1520px;
-}
-
-.Searched .Loading-cards-wrap {
-  margin-block: 100px;
-  width: 215px;
+  position: relative;
 }
 
 .Loading-cards-svg {
@@ -46,15 +36,14 @@
 }
 
 .Loading-cards-svg:nth-child(1) {
-  z-index: -1;
+  z-index: 1;
 }
 
 .Loading-cards-svg:nth-child(2) {
-  z-index: 0;
+  z-index: 2;
 }
 
 .Loading-cards-svg:nth-child(3) {
-  z-index: -2;
-  animation: shuffleCard 3s ease-in-out infinite;
-  animation-fill-mode: forwards;
+  z-index: 3;
+  animation: shuffleCard 2.5s ease-in-out infinite;
 }
