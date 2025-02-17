@@ -19,22 +19,19 @@
   }
 }
 .Loading-cards {
-  animation: fadeIn 2s;
+  animation: fadeIn 2s ease-in-out;
 }
 .Loading-cards-wrap {
   height: 300px;
   position: relative;
 }
-.Home .Loading-cards-wrap {
+.Home .Loading-cards-wrap,
+.Chosen-set .Loading-cards-wrap {
   width: 1520px;
 }
 .Searched .Loading-cards-wrap {
   margin-block: 100px;
   width: 215px;
-}
-.Chosen-set .Loading-cards-wrap {
-  margin-block: 100px;
-  width: 1520px;
 }
 .Loading-cards-svg {
   position: absolute;
@@ -47,6 +44,6 @@
 }
 .Loading-cards-svg:nth-child(3) {
   z-index: 1;
-  animation: shuffleCard 2.5s infinite;
+  animation: shuffleCard 2.5s ease-in-out infinite;
   animation-fill-mode: forwards;
 }
